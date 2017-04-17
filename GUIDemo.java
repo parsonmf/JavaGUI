@@ -1,13 +1,11 @@
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Dimension; import java.awt.Toolkit; import java.awt.event.ActionEvent; import 
+java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-/**
- * Minimal Java Swing application.
+/** nano GUIDemo.java * Minimal Java Swing application.
  * 
- * @author Nathan Sprague
+ * @author Nathan Sprague & Matt Parsons
  * 
  */
 public class GUIDemo extends JFrame
@@ -15,6 +13,7 @@ public class GUIDemo extends JFrame
     private JPanel panel;
     private JButton biggerButton;
     private JButton smallerButton;
+    private JButton maximizeButton;
 
     /**
      * Set up the application.
@@ -27,11 +26,14 @@ public class GUIDemo extends JFrame
         panel = new JPanel();
         biggerButton = new JButton("BIGGER");
         smallerButton = new JButton("SMALLER");
+	maximizeButton = new JButton("MAXIMIZE");
         biggerButton.addActionListener(new ButtonHandler());
         smallerButton.addActionListener(new ButtonHandler());
+	maximizeButton.addActionListener(new ButtonHandler());
         add(panel);
         panel.add(biggerButton);
         panel.add(smallerButton);
+	panel.add(maximizeButton);
         setVisible(true);
     }
 
@@ -53,10 +55,15 @@ public class GUIDemo extends JFrame
             {
                 setSize(size.width + 10, size.height + 10);
             }
-            else
+            else if (e.getSource().equals(smallerButton))
+
             {
                 setSize(size.width - 10, size.height - 10);
             }
+	    else {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize((int) screenSize.getWidth(), (int) screenSize.getHeight());
+	    }
 
         }
     }
